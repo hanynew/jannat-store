@@ -11,111 +11,181 @@
 
     <title>متجر جنات للأناقة والتخفيضات</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
     <style>
+        /* الهوية البصرية */
         :root {
             --off-white: #FAF9F6;
             --beige: #E8D8C8;
             --dusty-pink: #C49A9B;
-            --text-dark: #4A4A4A;
+            --dusty-pink-dark: #a67c7d;
+            --text-dark: #333333;
         }
 
         body {
             background-color: var(--off-white);
             color: var(--text-dark);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Tajawal', sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
+            overflow-x: hidden;
         }
 
+        /* رأس الصفحة مع تأثير زجاجي (Glassmorphism) */
         header {
-            background-color: var(--beige);
-            padding: 40px 20px;
+            background: rgba(232, 216, 200, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 50px 20px;
             border-bottom: 2px solid var(--dusty-pink);
+            position: relative;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
             margin: 0;
             color: var(--text-dark);
-            font-weight: 400;
+            font-weight: 800;
+            font-size: 2.5em;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         p.subtitle {
-            color: var(--dusty-pink);
-            font-size: 1.1em;
-            margin-top: 10px;
+            color: var(--dusty-pink-dark);
+            font-size: 1.2em;
+            font-weight: 500;
+            margin-top: 15px;
         }
 
         .container {
-            max-width: 1000px;
-            margin: 40px auto;
+            max-width: 1100px;
+            margin: 50px auto;
             padding: 0 20px;
         }
 
+        /* شبكة المنتجات */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 50px;
         }
 
+        /* حركات الدخول (أنيميشن) */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* تصميم بطاقة المنتج ثلاثية الأبعاد */
         .product-card {
             background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.3s ease;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(232, 216, 200, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: right;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
         }
 
+        /* تأخير دخول البطاقات لتبدو متتابعة */
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.3s; }
+        .product-card:nth-child(3) { animation-delay: 0.5s; }
+
+        /* تأثير الرفع عند مرور الماوس */
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(196, 154, 155, 0.15);
+            border-color: var(--dusty-pink);
+        }
+
+        /* برواز الصورة الفاخر */
+        .image-frame {
+            padding: 8px;
+            background: var(--off-white);
+            border-radius: 15px;
+            border: 2px dashed var(--beige);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .product-image {
             width: 100%;
-            height: 300px;
+            height: 320px;
             object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            background-color: var(--beige);
+            border-radius: 10px;
+            display: block;
+            transition: transform 0.5s ease;
         }
 
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        /* النصوص */
         .product-title {
-            font-size: 1.2em;
+            font-size: 1.4em;
             margin: 10px 0;
             color: var(--text-dark);
+            font-weight: 700;
         }
 
         .product-desc {
-            font-size: 0.95em;
-            color: #777;
-            line-height: 1.6;
+            font-size: 1em;
+            color: #666;
+            line-height: 1.7;
+            font-weight: 400;
         }
 
         .product-price {
-            font-weight: bold;
-            color: var(--dusty-pink);
-            font-size: 1.2em;
-            margin: 15px 0 5px 0;
+            font-weight: 800;
+            color: var(--dusty-pink-dark);
+            font-size: 1.4em;
+            margin: 20px 0 15px 0;
+            display: inline-block;
+            background: var(--off-white);
+            padding: 5px 15px;
+            border-radius: 10px;
         }
 
+        /* الزر اللامع والبارز 3D */
         .buy-button {
             display: block;
-            background-color: var(--dusty-pink);
+            background: linear-gradient(135deg, #d8acae, #C49A9B);
             color: white;
-            padding: 12px;
+            padding: 15px;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 30px;
             text-align: center;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: opacity 0.3s ease;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-top: 10px;
+            /* الظل والبروز */
+            box-shadow: 0 6px 0 var(--dusty-pink-dark), 0 10px 20px rgba(196, 154, 155, 0.4), inset 0 2px 0 rgba(255,255,255,0.3);
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* حركة الزر عند الضغط (ينزل للأسفل) */
+        .buy-button:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 var(--dusty-pink-dark), 0 5px 10px rgba(196, 154, 155, 0.4), inset 0 2px 0 rgba(255,255,255,0.3);
         }
 
         .buy-button:hover {
-            opacity: 0.8;
+            filter: brightness(1.05);
         }
     </style>
 </head>
@@ -130,27 +200,33 @@
         <div class="products-grid">
 
             <div class="product-card">
-                <img src="dress.jpg" alt="فستان أنيق" class="product-image">
+                <div class="image-frame">
+                    <img src="dress.jpg" alt="فستان أنيق" class="product-image">
+                </div>
                 <h3 class="product-title">فستان سهرة ناعم</h3>
-                <p class="product-desc">تصميم فاخر وعصري يتناسب مع أرقى المناسبات ليعطيك إطلالة متميزة.</p>
-                <p class="product-price">السعر: 180 ريال</p>
-                <a href="https://wa.me/966500000000?text=أريد_طلب_فستان_السهرة_الناعم" target="_blank" class="buy-button">طلب عبر الواتساب</a>
+                <p class="product-desc">تصميم فاخر وعصري يتناسب مع أرقى المناسبات ليعطيك إطلالة متميزة ومختلفة.</p>
+                <div class="product-price">180 ريال</div>
+                <a href="https://wa.me/966500000000?text=أريد_طلب_فستان_السهرة_الناعم" target="_blank" class="buy-button">الطلب السريع عبر واتساب</a>
             </div>
 
             <div class="product-card">
-                <img src="accessory.jpg" alt="طقم إكسسوار فاخر" class="product-image">
+                <div class="image-frame">
+                    <img src="accessory.jpg" alt="طقم إكسسوار" class="product-image">
+                </div>
                 <h3 class="product-title">طقم إكسسوار فاخر</h3>
-                <p class="product-desc">طقم مطلي ومرصع بعناية ليضفي لمسة من الجمال والجاذبية على مظهرك.</p>
-                <p class="product-price">السعر: 95 ريال</p>
-                <a href="https://wa.me/966500000000?text=أريد_طلب_طقم_الإكسسوار_الفاخر" target="_blank" class="buy-button">طلب عبر الواتساب</a>
+                <p class="product-desc">طقم مطلي ومرصع بعناية فائقة ليضفي لمسة من الجمال والجاذبية الاستثنائية على مظهرك.</p>
+                <div class="product-price">95 ريال</div>
+                <a href="https://wa.me/966500000000?text=أريد_طلب_طقم_الإكسسوار_الفاخر" target="_blank" class="buy-button">الطلب السريع عبر واتساب</a>
             </div>
 
             <div class="product-card">
-                <img src="kids.jpg" alt="طقم أطفال قطني" class="product-image">
+                <div class="image-frame">
+                    <img src="kids.jpg" alt="طقم أطفال" class="product-image">
+                </div>
                 <h3 class="product-title">طقم أطفال صيفي</h3>
-                <p class="product-desc">ملابس قطنية ناعمة ومريحة جداً، مصممة خصيصاً لتناسب حركة طفلك اليومية.</p>
-                <p class="product-price">السعر: 120 ريال</p>
-                <a href="https://wa.me/966500000000?text=أريد_طلب_طقم_الأطفال_الصيفي" target="_blank" class="buy-button">طلب عبر الواتساب</a>
+                <p class="product-desc">ملابس قطنية ناعمة ومريحة جداً، مصممة بأعلى معايير الجودة لتناسب حركة طفلك اليومية.</p>
+                <div class="product-price">120 ريال</div>
+                <a href="https://wa.me/966500000000?text=أريد_طلب_طقم_الأطفال_الصيفي" target="_blank" class="buy-button">الطلب السريع عبر واتساب</a>
             </div>
 
         </div>
