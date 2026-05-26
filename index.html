@@ -3,205 +3,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta property="og:title" content="متجر جنات للأناقة والتخفيضات">
-    <meta property="og:description" content="وجهتك الأولى لأرقى الأزياء، الإكسسوارات، وملابس الأطفال.">
-    <meta property="og:image" content="https://jannat-store.vercel.app/dress.jpg">
-    <meta property="og:type" content="website">
-
     <title>متجر جنات للأناقة والتخفيضات</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
     <style>
+        /* ━━━━━━━━━━ الهوية العامة والمتغيرات ━━━━━━━━━━ */
         :root {
-            --off-white: #FAF9F6;
-            --beige: #E8D8C8;
-            --dusty-pink: #C49A9B;
-            --dusty-pink-dark: #a67c7d;
-            --text-dark: #333333;
+            --bg-light: #FBF9F6; /* بيج فاتح جداً */
+            --card-white: #FFFFFF;
+            --text-dark: #1A1A1A; /* أسود فخم */
+            --text-muted: #7A7A7A;
+            --dusty-rose: #CBA4A4; /* وردي غباري */
+            --gold-glow: rgba(212, 175, 55, 0.15); /* توهج ذهبي ناعم */
+            --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.03);
+            --radius-large: 24px;
+            --radius-medium: 16px;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--off-white);
-            color: var(--text-dark);
             font-family: 'Tajawal', sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+            padding-bottom: 90px; /* مساحة للـ Bottom Nav */
             overflow-x: hidden;
         }
 
-        header {
-            background: rgba(232, 216, 200, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 50px 20px;
-            border-bottom: 2px solid var(--dusty-pink);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        /* ━━━━━━━━━━ الهيدر العلوي ━━━━━━━━━━ */
+        .hero-header {
+            background: linear-gradient(180deg, #F3EFE9 0%, var(--bg-light) 100%);
+            padding: 50px 20px 30px;
+            text-align: center;
+            animation: fadeInDown 0.8s var(--transition-smooth);
         }
 
-        h1 {
-            margin: 0;
-            color: var(--text-dark);
+        .hero-header h1 {
             font-weight: 800;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            letter-spacing: -0.5px;
         }
 
-        p.subtitle {
-            color: var(--dusty-pink-dark);
-            font-size: 1.2em;
-            font-weight: 500;
-            margin-top: 15px;
+        .hero-header p {
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
+        /* ━━━━━━━━━━ شبكة المنتجات (Mobile First) ━━━━━━━━━━ */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            padding-bottom: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            padding: 0 20px 20px;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* ━━━━━━━━━━ بطاقة المنتج ━━━━━━━━━━ */
         .product-card {
-            background-color: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            border: 1px solid rgba(232, 216, 200, 0.5);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: right;
-            animation: fadeInUp 0.6s ease-out forwards;
+            background-color: var(--card-white);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            position: relative;
             opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s var(--transition-smooth) forwards;
+            transition: var(--transition-smooth);
         }
 
         .product-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(196, 154, 155, 0.15);
-            border-color: var(--dusty-pink);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.06);
         }
 
-        .image-frame {
-            padding: 8px;
-            background: var(--off-white);
-            border-radius: 15px;
-            border: 2px dashed var(--beige);
-            margin-bottom: 20px;
+        /* شارة العروض */
+        .badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--dusty-rose);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            z-index: 2;
+            box-shadow: 0 4px 15px var(--gold-glow);
             overflow: hidden;
         }
 
-        .product-image {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            transition: transform 0.5s ease;
+        .badge::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 3s infinite;
         }
 
-        .product-card:hover .product-image {
-            transform: scale(1.05);
+        /* صورة المنتج */
+        .image-container {
+            width: 100%;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background-color: #F0F0F0; /* لون بديل للـ Skeleton */
+            position: relative;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crop احترافي تلقائي */
+            transition: transform 0.6s ease;
+            cursor: zoom-in;
+        }
+
+        .image-container:hover .product-img {
+            transform: scale(1.05); /* زوم ناعم جدًا */
+        }
+
+        /* تفاصيل البطاقة */
+        .product-info {
+            padding: 16px;
+            text-align: right;
         }
 
         .product-title {
-            font-size: 1.4em;
-            margin: 10px 0;
-            color: var(--text-dark);
+            font-size: 14px;
             font-weight: 700;
-        }
-
-        .product-desc {
-            font-size: 1em;
-            color: #666;
-            line-height: 1.7;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* سطرين كحد أقصى */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .product-price {
+            font-size: 16px;
             font-weight: 800;
-            color: var(--dusty-pink-dark);
-            font-size: 1.4em;
-            margin: 20px 0 15px 0;
-            display: inline-block;
-            background: var(--off-white);
-            padding: 5px 15px;
-            border-radius: 10px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
         }
 
-        .buy-button {
-            display: block;
-            background: linear-gradient(135deg, #d8acae, #C49A9B);
+        /* الأزرار */
+        .btn-order {
+            width: 100%;
+            background-color: var(--text-dark);
             color: white;
-            padding: 15px;
-            text-decoration: none;
-            border-radius: 30px;
-            text-align: center;
+            border: none;
+            padding: 12px 0;
+            border-radius: var(--radius-medium);
+            font-family: inherit;
             font-weight: 700;
-            font-size: 1.1em;
-            box-shadow: 0 6px 0 var(--dusty-pink-dark), 0 10px 20px rgba(196, 154, 155, 0.4), inset 0 2px 0 rgba(255,255,255,0.3);
-            transition: all 0.2s ease;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
         }
 
-        .buy-button:active {
-            transform: translateY(6px);
-            box-shadow: 0 0px 0 var(--dusty-pink-dark), 0 5px 10px rgba(196, 154, 155, 0.4);
+        .btn-order:active {
+            transform: scale(0.96);
+            background-color: var(--dusty-rose);
         }
 
-        .buy-button:hover {
-            filter: brightness(1.05);
+        /* ━━━━━━━━━━ Bottom Navigation (Glassmorphism) ━━━━━━━━━━ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 5%;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px); /* Blur ناعم */
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.4);
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item.active {
+            color: var(--dusty-rose);
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .nav-icon {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 4px;
+            fill: currentColor;
+        }
+
+        /* ━━━━━━━━━━ Lightbox (معرض الصور الاحترافي) ━━━━━━━━━━ */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: var(--radius-large);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            font-weight: 300;
+        }
+
+        /* ━━━━━━━━━━ Skeleton Loading Animation ━━━━━━━━━━ */
+        .skeleton {
+            animation: skeleton-loading 1.5s linear infinite alternate;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-color: #E2E2E2; }
+            100% { background-color: #F0F0F0; }
+        }
+
+        /* حركات الظهور والتأثيرات */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shine {
+            100% { left: 200%; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>متجر جنات للأناقة والتخفيضات</h1>
-        <p class="subtitle">أرقى الأزياء، الإكسسوارات، وملابس الأطفال</p>
+    <header class="hero-header">
+        <h1>جنات للأناقة والتخفيضات</h1>
+        <p>أرقى الأزياء والإكسسوارات بلمسة فاخرة</p>
     </header>
 
-    <div class="container">
-        <div class="products-grid" id="store-products"></div>
+    <main class="products-grid" id="product-container">
+        
+        <article class="product-card" style="animation-delay: 0.1s;">
+            <div class="badge">تخفيض فاخر</div>
+            <div class="image-container skeleton">
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80" alt="فستان سهرة ناعم" class="product-img" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">فستان سهرة ناعم بتفاصيل حريرية راقية جداً</h2>
+                <div class="product-price">290 ر.س</div>
+                <button class="btn-order">إضافة للسلة</button>
+            </div>
+        </article>
+
+        <article class="product-card" style="animation-delay: 0.2s;">
+            <div class="badge">جديد</div>
+            <div class="image-container skeleton">
+                <img src="https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=500&q=80" alt="طقم إكسسوار" class="product-img" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">طقم إكسسوار روز جولد ناعم</h2>
+                <div class="product-price">145 ر.س</div>
+                <button class="btn-order">إضافة للسلة</button>
+            </div>
+        </article>
+        
+        <article class="product-card" style="animation-delay: 0.3s;">
+            <div class="image-container skeleton">
+                <img src="https://images.unsplash.com/photo-1515347619362-790176840742?w=500&q=80" alt="حقيبة فاخرة" class="product-img" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">حقيبة يد جلدية بتصميم كلاسيكي هادئ</h2>
+                <div class="product-price">320 ر.س</div>
+                <button class="btn-order">إضافة للسلة</button>
+            </div>
+        </article>
+
+        <article class="product-card" style="animation-delay: 0.4s;">
+            <div class="badge" style="background: var(--text-dark);">حصري</div>
+            <div class="image-container skeleton">
+                <img src="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=500&q=80" alt="ملابس أطفال" class="product-img" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">فستان أطفال أنيق للحفلات</h2>
+                <div class="product-price">180 ر.س</div>
+                <button class="btn-order">إضافة للسلة</button>
+            </div>
+        </article>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            الرئيسية
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 20.01 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            السلة
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            حسابي
+        </a>
+    </nav>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox" id="close-lightbox">&times;</span>
+        <img src="" alt="عرض مكبر" id="lightbox-img">
     </div>
 
     <script>
-        // بروتوكول المعالجة الديناميكية لجلب وعرض البيانات
-        const whatsappNumber = "966500000000"; // قم بتحديثه برقم الاتصال الفعلي
+        document.addEventListener("DOMContentLoaded", () => {
+            // إزالة الـ Skeleton بعد تحميل الصورة
+            const images = document.querySelectorAll('.product-img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.parentElement.classList.remove('skeleton');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.parentElement.classList.remove('skeleton');
+                    });
+                }
+            });
 
-        fetch('products.json')
-            .then(response => response.json())
-            .then(products => {
-                const productsContainer = document.getElementById('store-products');
-                
-                products.forEach((product, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    // إضافة تأخير زمني متسلسل لحركة الظهور (Fade Up)
-                    card.style.animationDelay = (index * 0.15) + 's'; 
-                    
-                    card.innerHTML = `
-                        <div class="image-frame">
-                            <img src="${product.image}" alt="${product.title}" class="product-image">
-                        </div>
-                        <h3 class="product-title">${product.title}</h3>
-                        <p class="product-desc">${product.desc}</p>
-                        <div class="product-price">${product.price}</div>
-                        <a href="https://wa.me/${whatsappNumber}?text=${product.whatsapp_message}" target="_blank" class="buy-button">الطلب السريع عبر واتساب</a>
-                    `;
-                    
-                    productsContainer.appendChild(card);
+            // تفعيل الـ Lightbox للصور
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeLightbox = document.getElementById('close-lightbox');
+
+            images.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    lightboxImg.src = e.target.src;
+                    lightbox.classList.add('active');
                 });
-            })
-            .catch(error => console.error('System Error - Data Fetching Failed:', error));
-    </script>
+            });
 
+            // إغلاق النافذة
+            closeLightbox.addEventListener('click', () => {
+                lightbox.classList.remove('active');
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target !== lightboxImg) {
+                    lightbox.classList.remove('active');
+                }
+            });
+
+            // تأثير الأزرار
+            const buttons = document.querySelectorAll('.btn-order');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    let text = this.innerText;
+                    this.innerText = "تمت الإضافة ✓";
+                    this.style.backgroundColor = "var(--dusty-rose)";
+                    setTimeout(() => {
+                        this.innerText = text;
+                        this.style.backgroundColor = "var(--text-dark)";
+                    }, 2000);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
